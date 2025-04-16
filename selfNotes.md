@@ -35,3 +35,4 @@ type PersonKeys = keyof typeof Person;
 
 ##
 - css for spacing b/w letters: `letterSpacing`
+- `StyleSheet.hairlineWidth` - minimum possible visible width
