@@ -32,3 +32,6 @@ type PersonKeys = keyof typeof Person;
 // "name" | "age" | "address"
 ```
 - we can access obj properties like this also: `obj[key]` (or obj.key)
+
+##
+- css for spacing b/w letters: `letterSpacing`
