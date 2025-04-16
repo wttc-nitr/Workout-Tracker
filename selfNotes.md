@@ -1,0 +1,1 @@
+- `useLocalSearchParams` - get url param for current component
