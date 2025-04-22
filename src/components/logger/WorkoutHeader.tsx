@@ -7,7 +7,7 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 export default function WorkoutHeader() {
   const [timer, setTimer] = useState("0:00");
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const workout = dummyWorkouts[0]; // workout reference to the same object every time,
+  const workout = dummyWorkouts[0]; // 'workout' refer to the same object every time,
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
