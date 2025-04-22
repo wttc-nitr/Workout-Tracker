@@ -36,3 +36,32 @@ type PersonKeys = keyof typeof Person;
 ##
 - css for spacing b/w letters: `letterSpacing`
 - `StyleSheet.hairlineWidth` - minimum possible visible width
+
+## Flatlist
+- content is rendered asynchronously offscreen. It's possible to scroll faster than the fill rate and momentarily see blank content.
+
+- by default, Flatlist will **not** re-render on state change.
+- use `extraData` prop to achieve the same.
+
+- if there's a `key` prop in each item, it'll be used as React key.
+- or provide a custom `keyExtractor` prop.
+
+## Shallow v/s Deep
+- shallow comparison: just compare their references (memory location)
+```
+// e.g
+const obj1 = {a: 1, b: 2};
+const obj2 = obj1;
+
+obj1.a = 9
+
+obj1 === obj2; // true, since same memory location, & change in one reflects in another.
+```
+- deep comparison: checking manually each & every key (nested keys included)
+```
+// only works if all the keys are in same order.
+JSON.stringify(obj1) === JSON.stringify(obj2);
+
+// Recommended way:
+// Recursively check each key.
+```
