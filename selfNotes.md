@@ -65,3 +65,5 @@ JSON.stringify(obj1) === JSON.stringify(obj2);
 // Recommended way:
 // Recursively check each key.
 ```
+##
+- `useHeaderHeight()` : get the header height.
