@@ -1,8 +1,8 @@
 export default [
   {
     id: "ea578a01-9581-4fc7-9423-8ad0eb7c5fc6",
-    createdAt: "2024-09-23T13:17:46.393Z",
-    finishedAt: "2024-09-23T14:56:16.132Z",
+    createdAt: new Date("2024-09-23T13:17:46.393Z"),
+    finishedAt: new Date("2024-09-23T14:56:16.132Z"),
     exercises: [
       {
         id: "f5aa8995-73d8-4500-b99b-e0a57e54f0fb",
@@ -48,8 +48,6 @@ export default [
             id: "ad29ea5b-1d6b-4c2e-a074-a92ee14a2337",
             exerciseId: "4dcb1962-1f6d-40d0-b355-9ac7cd55bc4d",
             reps: 12,
-            weight: null,
-            oneRM: null,
           },
         ],
       },
@@ -57,8 +55,8 @@ export default [
   },
   {
     id: "93c2bcbe-caa6-483d-9145-ba9a9d340028",
-    createdAt: "2024-09-23T13:08:21.922Z",
-    finishedAt: "2024-09-23T13:10:07.670Z",
+    createdAt: new Date("2024-09-23T13:08:21.922Z"),
+    finishedAt: new Date("2024-09-23T13:10:07.670Z"),
     exercises: [
       {
         id: "d559ddad-4f95-430b-bc6f-9b4b456ad935",
@@ -160,22 +158,16 @@ export default [
             id: "77d7fc2d-a67e-4c38-8421-431bc58ef99a",
             exerciseId: "70123054-fa82-4298-82c5-05b23e382cd8",
             reps: 10,
-            weight: null,
-            oneRM: null,
           },
           {
             id: "61083234-d64a-44a9-bef3-03595b1fd619",
             exerciseId: "70123054-fa82-4298-82c5-05b23e382cd8",
             reps: 8,
-            weight: null,
-            oneRM: null,
           },
           {
             id: "0da5c8c2-0a50-449c-9802-f25b5b497ced",
             exerciseId: "70123054-fa82-4298-82c5-05b23e382cd8",
             reps: 7,
-            weight: null,
-            oneRM: null,
           },
         ],
       },
@@ -183,8 +175,8 @@ export default [
   },
   {
     id: "c8b9f510-0860-4f20-b5a9-581596bb103b",
-    createdAt: "2024-09-23T13:07:08.470Z",
-    finishedAt: "2024-09-23T13:08:11.553Z",
+    createdAt: new Date("2024-09-23T13:07:08.470Z"),
+    finishedAt: new Date("2024-09-23T13:08:11.553Z"),
     exercises: [
       {
         id: "81e60af0-193c-451c-aa1b-54352fe96e03",
@@ -251,22 +243,16 @@ export default [
             id: "9bdb9b0d-a7b4-483f-a048-96839aa2b9c2",
             exerciseId: "d33a888e-1a50-470e-85c9-fa223099383d",
             reps: 15,
-            weight: null,
-            oneRM: null,
           },
           {
             id: "33c3ef22-42c7-4905-b806-b39ac031d306",
             exerciseId: "d33a888e-1a50-470e-85c9-fa223099383d",
             reps: 20,
-            weight: null,
-            oneRM: null,
           },
           {
             id: "ecf36416-9926-424a-8ca6-8fcdef668977",
             exerciseId: "d33a888e-1a50-470e-85c9-fa223099383d",
             reps: 25,
-            weight: null,
-            oneRM: null,
           },
         ],
       },
@@ -274,8 +260,8 @@ export default [
   },
   {
     id: "ba325bed-c7ea-42d3-a617-5828f0bbdf4f",
-    createdAt: "2024-09-23T13:05:17.072Z",
-    finishedAt: "2024-09-23T13:06:36.337Z",
+    createdAt: new Date("2024-09-23T13:05:17.072Z"),
+    finishedAt: new Date("2024-09-23T13:06:36.337Z"),
     exercises: [
       {
         id: "354ed953-6be3-496f-b029-eaf345905ce3",
@@ -337,8 +323,8 @@ export default [
   },
   {
     id: "773f7b55-869a-4d20-b937-8784616e14a1",
-    createdAt: "2024-09-23T11:21:24.390Z",
-    finishedAt: "2024-09-23T13:05:14.490Z",
+    createdAt: new Date("2024-09-23T11:21:24.390Z"),
+    finishedAt: new Date("2024-09-23T13:05:14.490Z"),
     exercises: [
       {
         id: "61dd6099-4f7b-446e-bb35-06213ca585bd",
@@ -428,8 +414,8 @@ export default [
   },
   {
     id: "e4b636c7-9f7c-4c41-9154-6f9aa605e123",
-    createdAt: "2024-09-23T11:19:33.890Z",
-    finishedAt: "2024-09-23T11:20:06.090Z",
+    createdAt: new Date("2024-09-23T11:19:33.890Z"),
+    finishedAt: new Date("2024-09-23T11:20:06.090Z"),
     exercises: [
       {
         id: "cc58d94a-6345-48d6-b8f4-94dc0196a6e3",
@@ -456,8 +442,8 @@ export default [
   },
   {
     id: "9abb5d80-59fb-4cf9-b932-84f9b0bde9fd",
-    createdAt: "2024-09-23T11:02:35.187Z",
-    finishedAt: "2024-09-23T11:03:02.351Z",
+    createdAt: new Date("2024-09-23T11:02:35.187Z"),
+    finishedAt: new Date("2024-09-23T11:03:02.351Z"),
     exercises: [
       {
         id: "c54355e3-cc6f-4254-928b-246884c61929",
@@ -484,8 +470,8 @@ export default [
   },
   {
     id: "70364481-413e-4432-a46d-b6a643923b1e",
-    createdAt: "2024-09-23T10:58:10.886Z",
-    finishedAt: "2024-09-23T10:58:28.469Z",
+    createdAt: new Date("2024-09-23T10:58:10.886Z"),
+    finishedAt: new Date("2024-09-23T10:58:28.469Z"),
     exercises: [
       {
         id: "3fd3a2af-99b5-4fdb-b3cb-b39936c2cae7",
@@ -497,14 +483,14 @@ export default [
   },
   {
     id: "4d17a4d5-a80f-4813-bef7-aca4bb0d3df9",
-    createdAt: "2024-09-23T10:57:59.351Z",
-    finishedAt: "2024-09-23T10:58:06.932Z",
+    createdAt: new Date("2024-09-23T10:57:59.351Z"),
+    finishedAt: new Date("2024-09-23T10:58:06.932Z"),
     exercises: [],
   },
   {
     id: "43687359-b694-4164-8411-e6a425199bab",
-    createdAt: "2024-09-23T10:56:53.687Z",
-    finishedAt: "2024-09-23T10:57:06.231Z",
+    createdAt: new Date("2024-09-23T10:56:53.687Z"),
+    finishedAt: new Date("2024-09-23T10:57:06.231Z"),
     exercises: [
       {
         id: "c2a0e0e0-78e7-4234-85a5-123f9dad5f14",
@@ -516,8 +502,8 @@ export default [
   },
   {
     id: "2d7de2e0-b532-4279-9270-160839a04985",
-    createdAt: "2024-09-23T10:53:55.000Z",
-    finishedAt: "2024-09-23T10:53:55.000Z",
+    createdAt: new Date("2024-09-23T10:53:55.000Z"),
+    finishedAt: new Date("2024-09-23T10:53:55.000Z"),
     exercises: [
       {
         id: "e6e95e91-ff50-46bb-bd9f-97a4c22d8f14",
@@ -537,8 +523,8 @@ export default [
   },
   {
     id: "9f1ec004-257f-4e5e-a24a-3494a1c7557c",
-    createdAt: "2024-09-23T10:53:55.000Z",
-    finishedAt: "2024-09-23T10:53:55.000Z",
+    createdAt: new Date("2024-09-23T10:53:55.000Z"),
+    finishedAt: new Date("2024-09-23T10:53:55.000Z"),
     exercises: [
       {
         id: "33eb1061-47cc-4b15-a9d2-50462d4025df",
@@ -558,8 +544,8 @@ export default [
   },
   {
     id: "143d5c91-42cb-4b6a-9351-5d780a1a091b",
-    createdAt: "2024-09-23T10:53:55.000Z",
-    finishedAt: "2024-09-23T10:53:55.000Z",
+    createdAt: new Date("2024-09-23T10:53:55.000Z"),
+    finishedAt: new Date("2024-09-23T10:53:55.000Z"),
     exercises: [],
   },
 ];
