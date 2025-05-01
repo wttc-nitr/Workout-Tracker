@@ -67,3 +67,10 @@ JSON.stringify(obj1) === JSON.stringify(obj2);
 ```
 ##
 - `useHeaderHeight()` : get the header height.
+
+## state of an application:
+- `useState` -> for managing the state limited to a component only.
+- `context` -> to avoid passing state of a parent to nested child components (prop-drilling), we use context.
+  - it's inefficient, because when data changes, all the components accessing it re-render.
+  - we can use `context` where the data doesn't change often, e.g toggle theme (from light to dark).
+- `global state management libs` -> when the data changes often. Efficient at managing data globally.
