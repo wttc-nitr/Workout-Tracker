@@ -6,6 +6,7 @@ import { Stack } from "expo-router";
 import CustomButton from "@/components/general/CustomButton";
 import WorkoutHeader from "@/components/logger/WorkoutHeader";
 import SelectExerciseModal from "@/components/logger/SelectExerciseModal";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function CurrentWorkoutScreen() {
   const headerHeight = useHeaderHeight();
@@ -23,11 +24,7 @@ export default function CurrentWorkoutScreen() {
           ),
         }}
       />
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
-        keyboardVerticalOffset={headerHeight}
-      >
+      <KeyboardAwareScrollView>
         <FlatList
           data={[1, 2, 3]}
           contentContainerStyle={{ gap: 10, padding: 10 }}
@@ -41,7 +38,7 @@ export default function CurrentWorkoutScreen() {
             />
           }
         />
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
     </>
   );
 }
