@@ -74,3 +74,29 @@ JSON.stringify(obj1) === JSON.stringify(obj2);
   - it's inefficient, because when data changes, all the components accessing it re-render.
   - we can use `context` where the data doesn't change often, e.g toggle theme (from light to dark).
 - `global state management libs` -> when the data changes often. Efficient at managing data globally.
+
+## Zustand basics
+```
+type StoreType = {
+  count: number;
+  resetCount: () => void;
+  increaseCount: () => void;
+};
+
+const useStore = create<StoreType>((set) => {
+  return {
+    count: 33,
+    resetCount: () => {
+      set({ count: 0 });
+    },
+    increaseCount: () => {
+      set((state) => ({ count: state.count + 1 }));
+    },
+  };
+});
+
+// access items of store...
+const count = useStore(state => state.count);
+const resetCount = useStore(state => state.resetCount);
+const increaseCount = useStore(state => state.increaseCount);
+```
