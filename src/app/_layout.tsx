@@ -6,6 +6,8 @@ import {
   DarkTheme,
 } from "@react-navigation/native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import CustomButton from "@/components/general/CustomButton";
+import { useWorkouts } from "@/store";
 
 // DarkTheme.colors.primary = Colors.dark.tint;
 // DefaultTheme.colors.primary = Colors.light.tint;
@@ -13,6 +15,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const finishWorkout = useWorkouts((state) => state.endWorkout);
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
@@ -23,7 +26,19 @@ export default function RootLayout() {
           }}
         >
           <Stack.Screen name="index" options={{ title: "Home" }} />
-          <Stack.Screen name="workout/current" options={{ title: "Workout" }} />
+          <Stack.Screen
+            name="workout/current"
+            options={{
+              title: "Workout",
+              headerRight: () => (
+                <CustomButton
+                  onPress={finishWorkout}
+                  title="Finish"
+                  style={{ padding: 7, paddingHorizontal: 15, width: "auto" }}
+                />
+              ),
+            }}
+          />
           <Stack.Screen name="workout/[id]" options={{ title: "Workout" }} />
         </Stack>
       </ThemeProvider>
