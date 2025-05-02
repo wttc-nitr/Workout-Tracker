@@ -1,18 +1,18 @@
 import { View, Text } from "@/components/general/Themed";
 import { useEffect, useRef, useState } from "react";
-import dummyWorkouts from "@/data/dummyWorkouts";
 import { calculateDurationHourMinutes } from "@/utils/time";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import { useWorkouts } from "@/store";
 
 export default function WorkoutHeader() {
   const [timer, setTimer] = useState("0:00");
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const workout = dummyWorkouts[0]; // 'workout' refer to the same object every time,
+  const workout = useWorkouts((state) => state.currentWorkout); // 'workout' refer to the same object every time,
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
       const duration = calculateDurationHourMinutes(
-        new Date(workout.createdAt),
+        new Date(workout?.createdAt || ""),
         new Date(),
       );
       setTimer(duration);
