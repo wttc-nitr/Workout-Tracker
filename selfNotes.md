@@ -8,7 +8,7 @@
 (as per device theme).
 - wrap root layout in `<ThmeProvider> </ThmeProvider>` for system wide theme info, now whole app can react
 to theme changes.
-```
+```typescript
 const colorScheme = useColorScheme();
 
 <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
@@ -21,7 +21,7 @@ const colorScheme = useColorScheme();
 ## custom themed components:
 - `ComponentProps<typeof Text>` is same as `Text["props"]`
 - `keyof` crates a union type of all keys of an object (or interface).
-```
+```typescript
 const Person = {
   name: "John",
   age: 30,
@@ -48,7 +48,7 @@ type PersonKeys = keyof typeof Person;
 
 ## Shallow v/s Deep
 - shallow comparison: just compare their references (memory location)
-```
+```typescript
 // e.g
 const obj1 = {a: 1, b: 2};
 const obj2 = obj1;
@@ -58,7 +58,7 @@ obj1.a = 9
 obj1 === obj2; // true, since same memory location, & change in one reflects in another.
 ```
 - deep comparison: checking manually each & every key (nested keys included)
-```
+```typescript
 // only works if all the keys are in same order.
 JSON.stringify(obj1) === JSON.stringify(obj2);
 
@@ -76,14 +76,17 @@ JSON.stringify(obj1) === JSON.stringify(obj2);
 - `global state management libs` -> when the data changes often. Efficient at managing data globally.
 
 ## Zustand basics
-```
-type StoreType = {
+```typescript
+type State = {
   count: number;
-  resetCount: () => void;
-  increaseCount: () => void;
 };
 
-const useStore = create<StoreType>((set) => {
+type Actions = {
+  resetCount: () => void;
+  increaseCount: () => void;
+}
+
+const useStore = create<State & Actions>((set) => {
   return {
     count: 33,
     resetCount: () => {
@@ -99,4 +102,68 @@ const useStore = create<StoreType>((set) => {
 const count = useStore(state => state.count);
 const resetCount = useStore(state => state.resetCount);
 const increaseCount = useStore(state => state.increaseCount);
+```
+## zustand techniques: reduce re-renders
+- if a component is subscribed to a value, when that value change, the whole component (+ child components, if any) will re-render,
+- if possible, we can create another component, which will be subscribed to that value only. This way, we can reduce re-renders:
+```typescript
+// when `count` change, this component will re-render along with Name component
+const HomeScreen = () => {
+  const increaseCount = useStore((state) => state.increaseCount);
+  console.log("HomeScreen re-render");
+
+  return (
+    <View style={{ gap: 10 }}>
+      <Text>{count}</Text>
+
+      <Name />
+
+      <CustomButton title="Increase" onPress={() => increaseCount()} />
+    </View>
+  );
+}
+```
+```typescript
+// now, when value change, it'll only re-render the CounterDisplay component
+
+const CounterDisplay = () => {
+  const count = useStore((state) => state.count);
+  console.log("Counter re-render");
+
+  return <Text style={{ fontSize: 50 }}>{count}</Text>;
+};
+
+const HomeScreen = () => {
+  const increaseCount = useStore((state) => state.increaseCount);
+  console.log("HomeScreen re-render");
+
+  return (
+    <View style={{ gap: 10 }}>
+      <CounterDisplay />
+
+      <Name />
+
+      <CustomButton title="Increase" onPress={() => increaseCount()} />
+    </View>
+  );
+}
+```
+- another way to reduce re-render, a component should be the subscribed to the values it needs (& not the whole store)
+```typescript
+// only when name changes, it will re-render
+
+const Name = () => {
+  const name = useStore((state) => state.name);
+  console.log("Name re-render");
+  return <Text>{name}</Text>;
+};
+```
+```typescript
+// anything in store changes, it'll re-render
+
+const Name = () => {
+  const state = useStore();
+  console.log("Name re-render");
+  return <Text>{state.name}</Text>;
+};
 ```
