@@ -4,6 +4,7 @@ import type { WorkoutWithExercises } from "@/types/models";
 import { create } from "zustand";
 import { createNewWorkout, finishWorkout } from "@/services/workoutService";
 import { createNewExercise } from "@/services/exerciseService";
+import { immer } from "zustand/middleware/immer";
 
 type State = {
   currentWorkout: WorkoutWithExercises | null;
@@ -16,41 +17,40 @@ type Actions = {
   addExercise: (name: string) => void;
 };
 
-export const useWorkouts = create<State & Actions>()((set, get) => {
-  return {
-    // State
-    currentWorkout: null,
-    workouts: [],
+export const useWorkouts = create<State & Actions>()(
+  immer((set, get) => {
+    return {
+      // State
+      currentWorkout: null,
+      workouts: [],
 
-    // Actions
-    startWorkout: () => {
-      set((state) => ({ currentWorkout: createNewWorkout() }));
-    },
+      // Actions
+      startWorkout: () => {
+        set(() => ({ currentWorkout: createNewWorkout() }));
+      },
 
-    endWorkout: () => {
-      // end this current workout -> currentWorkout to null, push this workout to the list
-      const { currentWorkout } = get();
-      if (!currentWorkout) return;
+      endWorkout: () => {
+        // end this current workout -> currentWorkout to null, push this workout to the list
+        const { currentWorkout } = get();
+        if (!currentWorkout) return;
 
-      const finishedWorkout = finishWorkout(currentWorkout);
+        const finishedWorkout = finishWorkout(currentWorkout);
 
-      set((state) => ({
-        currentWorkout: null,
-        workouts: [...state.workouts, finishedWorkout],
-      }));
-    },
+        set((state) => {
+          state.currentWorkout = null;
+          state.workouts.unshift(finishedWorkout);
+        });
+      },
 
-    addExercise: (name: string) => {
-      const { currentWorkout } = get();
-      if (!currentWorkout) return;
-      const newExercise = createNewExercise(name, currentWorkout.id);
+      addExercise: (name: string) => {
+        const { currentWorkout } = get();
+        if (!currentWorkout) return;
+        const newExercise = createNewExercise(name, currentWorkout.id);
 
-      set((state) => ({
-        currentWorkout: state.currentWorkout && {
-          ...state.currentWorkout,
-          exercises: [...state.currentWorkout?.exercises, newExercise],
-        },
-      }));
-    },
-  };
-});
+        set((state) => {
+          state.currentWorkout?.exercises.push(newExercise);
+        });
+      },
+    };
+  }),
+);
