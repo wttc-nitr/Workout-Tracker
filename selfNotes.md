@@ -86,7 +86,7 @@ type Actions = {
   increaseCount: () => void;
 }
 
-const useStore = create<State & Actions>((set) => {
+const useStore = create<State & Actions>()((set) => {
   return {
     count: 33,
     resetCount: () => {
