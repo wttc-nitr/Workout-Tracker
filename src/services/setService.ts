@@ -36,3 +36,8 @@ export const updateSet = (
 
   return updatedSet;
 };
+
+export const cleanSets = (sets: ExerciseSet[]) => {
+  // remove all the empty sets -> sets with no reps
+  return sets.filter((set) => set.reps && set.reps > 0);
+};

@@ -1,5 +1,8 @@
 import type { WorkoutWithExercises } from "@/types/models";
-import { getExerciseTotalWeight } from "@/services/exerciseService";
+import {
+  cleanExercise,
+  getExerciseTotalWeight,
+} from "@/services/exerciseService";
 import * as Crypto from "expo-crypto";
 
 export const getWorkoutTotalWeight = (workout: WorkoutWithExercises) => {
@@ -21,10 +24,24 @@ export const createNewWorkout = () => {
 };
 
 export const finishWorkout = (workout: WorkoutWithExercises) => {
+  const cleanedWorkout = cleanWorkout(workout);
+
   const finishedWorkout: WorkoutWithExercises = {
-    ...workout,
+    ...cleanedWorkout,
     finishedAt: new Date(),
   };
 
   return finishedWorkout;
+};
+
+export const cleanWorkout = (workout: WorkoutWithExercises) => {
+  // remove all the exercises (from a Workout) with no sets
+  const cleanedExercises = workout.exercises
+    .filter(cleanExercise)
+    .filter((ex) => ex !== null);
+
+  return {
+    ...workout,
+    exercises: cleanedExercises,
+  };
 };
