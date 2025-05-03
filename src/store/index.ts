@@ -1,11 +1,11 @@
 // responsible for Storing data only, everything else should be moved to appropriate folders.
 
-import type { WorkoutWithExercises } from "@/types/models";
+import type { ExerciseSet, WorkoutWithExercises } from "@/types/models";
 import { create } from "zustand";
 import { createNewWorkout, finishWorkout } from "@/services/workoutService";
 import { createNewExercise } from "@/services/exerciseService";
 import { immer } from "zustand/middleware/immer";
-import { createNewSet } from "@/services/setService";
+import { createNewSet, updateSet } from "@/services/setService";
 
 type State = {
   currentWorkout: WorkoutWithExercises | null;
@@ -17,6 +17,10 @@ type Actions = {
   endWorkout: () => void;
   addExercise: (name: string) => void;
   addSet: (exerciseId: string) => void;
+  updateSet: (
+    setId: string,
+    updatedFields: Pick<ExerciseSet, "reps" | "weight">,
+  ) => void;
 };
 
 export const useWorkouts = create<State & Actions>()(
@@ -63,6 +67,21 @@ export const useWorkouts = create<State & Actions>()(
             (e) => e.id === exerciseId,
           );
           exercise?.sets?.push(newSet);
+        });
+      },
+
+      updateSet: (setId, updatedFields) => {
+        set(({ currentWorkout }) => {
+          const exercise = currentWorkout?.exercises.find((e) =>
+            e.sets.some((set) => set.id === setId),
+          );
+
+          const setIndex = exercise?.sets.findIndex((set) => set.id === setId);
+
+          if (!exercise || setIndex === undefined || setIndex < 0) return;
+
+          const updatedSet = updateSet(exercise?.sets[setIndex], updatedFields);
+          exercise.sets[setIndex] = updatedSet;
         });
       },
     };

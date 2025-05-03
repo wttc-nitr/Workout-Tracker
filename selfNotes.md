@@ -167,3 +167,14 @@ const Name = () => {
   return <Text>{state.name}</Text>;
 };
 ```
+## typescript: Pick
+- opposite of `Omit`
+```typescript
+type abc = {
+  a: string;
+  b: number;
+  c: number[]
+}
+
+type onlyNumberArray = Pick<abc, 'c'>
+```
