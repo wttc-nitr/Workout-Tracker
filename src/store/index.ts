@@ -5,6 +5,7 @@ import { create } from "zustand";
 import { createNewWorkout, finishWorkout } from "@/services/workoutService";
 import { createNewExercise } from "@/services/exerciseService";
 import { immer } from "zustand/middleware/immer";
+import { createNewSet } from "@/services/setService";
 
 type State = {
   currentWorkout: WorkoutWithExercises | null;
@@ -15,6 +16,7 @@ type Actions = {
   startWorkout: () => void;
   endWorkout: () => void;
   addExercise: (name: string) => void;
+  addSet: (exerciseId: string) => void;
 };
 
 export const useWorkouts = create<State & Actions>()(
@@ -42,13 +44,25 @@ export const useWorkouts = create<State & Actions>()(
         });
       },
 
-      addExercise: (name: string) => {
+      addExercise: (name) => {
         const { currentWorkout } = get();
         if (!currentWorkout) return;
         const newExercise = createNewExercise(name, currentWorkout.id);
 
         set((state) => {
-          state.currentWorkout?.exercises.push(newExercise);
+          state.currentWorkout?.exercises.unshift(newExercise);
+        });
+      },
+
+      addSet: (exerciseId) => {
+        const newSet = createNewSet(exerciseId);
+
+        set(({ currentWorkout }) => {
+          if (!currentWorkout) return;
+          const exercise = currentWorkout.exercises.find(
+            (e) => e.id === exerciseId,
+          );
+          exercise?.sets?.push(newSet);
         });
       },
     };
