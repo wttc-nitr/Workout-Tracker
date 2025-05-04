@@ -37,7 +37,7 @@ export const finishWorkout = (workout: WorkoutWithExercises) => {
 export const cleanWorkout = (workout: WorkoutWithExercises) => {
   // remove all the exercises (from a Workout) with no sets
   const cleanedExercises = workout.exercises
-    .filter(cleanExercise)
+    .map(cleanExercise)
     .filter((ex) => ex !== null);
 
   return {
