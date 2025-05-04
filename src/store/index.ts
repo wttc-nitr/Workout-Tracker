@@ -45,7 +45,9 @@ export const useWorkouts = create<State & Actions>()(
 
         set((state) => {
           state.currentWorkout = null;
-          state.workouts.unshift(finishedWorkout);
+
+          if (finishedWorkout.exercises.length !== 0)
+            state.workouts.unshift(finishedWorkout);
         });
       },
 
@@ -55,7 +57,7 @@ export const useWorkouts = create<State & Actions>()(
         const newExercise = createNewExercise(name, currentWorkout.id);
 
         set((state) => {
-          state.currentWorkout?.exercises.unshift(newExercise);
+          state.currentWorkout?.exercises.push(newExercise);
         });
       },
 
