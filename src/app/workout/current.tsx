@@ -4,6 +4,7 @@ import SelectExerciseModal from "@/components/logger/SelectExerciseModal";
 import { KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view";
 import { useWorkouts } from "@/store";
 import { Redirect } from "expo-router";
+import { FlatList, Platform } from "react-native";
 
 export default function CurrentWorkoutScreen() {
   const currentWorkout = useWorkouts((state) => state.currentWorkout);
@@ -20,6 +21,9 @@ export default function CurrentWorkoutScreen() {
       ListFooterComponent={
         <SelectExerciseModal onSelectExercise={(name) => addExercise(name)} />
       }
+      enableOnAndroid
+      keyboardShouldPersistTaps="handled"
+      extraScrollHeight={60}
     />
   );
 }
