@@ -8,12 +8,14 @@ import {
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import CustomButton from "@/components/general/CustomButton";
 import { useWorkouts } from "@/store";
+import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
+import * as SQLite from "expo-sqlite";
+import { dbName } from "@/db";
 
-// DarkTheme.colors.primary = Colors.dark.tint;
-// DefaultTheme.colors.primary = Colors.light.tint;
-// not working on android
+const db = SQLite.openDatabaseSync(dbName);
 
 export default function RootLayout() {
+  useDrizzleStudio(dbName);
   const colorScheme = useColorScheme();
   const finishWorkout = useWorkouts((state) => state.endWorkout);
   return (
