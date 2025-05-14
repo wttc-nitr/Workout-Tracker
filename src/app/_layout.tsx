@@ -15,7 +15,7 @@ import { dbName } from "@/db";
 const db = SQLite.openDatabaseSync(dbName);
 
 export default function RootLayout() {
-  useDrizzleStudio(dbName);
+  useDrizzleStudio(db);
   const colorScheme = useColorScheme();
   const finishWorkout = useWorkouts((state) => state.endWorkout);
   return (
