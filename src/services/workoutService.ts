@@ -1,9 +1,10 @@
-import type { WorkoutWithExercises } from "@/types/models";
+import type { ExerciseWithSets, WorkoutWithExercises } from "@/types/models";
 import {
   cleanExercise,
   getExerciseTotalWeight,
 } from "@/services/exerciseService";
 import * as Crypto from "expo-crypto";
+import { getCurrentWorkout, getWorkouts, saveWorkout } from "@/db/workouts";
 
 export const getWorkoutTotalWeight = (workout: WorkoutWithExercises) => {
   return workout.exercises.reduce(
@@ -33,6 +34,9 @@ export const finishWorkout = (workout: WorkoutWithExercises) => {
     ...cleanedWorkout,
     finishedAt: new Date(),
   };
+
+  // save to db
+  saveWorkout(finishedWorkout);
 
   return finishedWorkout;
 };
