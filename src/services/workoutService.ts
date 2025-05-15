@@ -20,6 +20,9 @@ export const createNewWorkout = () => {
     exercises: [],
   };
 
+  // save to db
+  saveWorkout(newWorkout);
+
   return newWorkout;
 };
 
