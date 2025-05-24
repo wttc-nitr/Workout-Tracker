@@ -11,13 +11,23 @@ import { useWorkouts } from "@/store";
 import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
 import * as SQLite from "expo-sqlite";
 import { dbName } from "@/db";
+import { useEffect } from "react";
 
 const db = SQLite.openDatabaseSync(dbName);
+// getDB();
+
+// SQLite.deleteDatabaseSync(dbName);
 
 export default function RootLayout() {
   useDrizzleStudio(db);
   const colorScheme = useColorScheme();
   const finishWorkout = useWorkouts((state) => state.endWorkout);
+  const loadWorkouts = useWorkouts((state) => state.loadWorkouts);
+
+  useEffect(() => {
+    loadWorkouts();
+  }, []);
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
