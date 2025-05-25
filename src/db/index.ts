@@ -11,6 +11,14 @@ const createWorkoutsTableQuery = `
     finished_at TEXT
   );`;
 
+const createExercisesTableQuery = `
+  CREATE TABLE IF NOT EXISTS exercises (
+    id TEXT PRIMARY KEY,
+    workout_id TEXT,
+    name TEXT,
+    FOREIGN KEY (workout_id) REFERENCES workouts (id)
+  )`;
+
 export const getDB = async () => {
   if (db) {
     return db;
@@ -21,7 +29,11 @@ export const getDB = async () => {
   console.log("Database opened");
 
   console.log("Creating tables...");
-  await db.execAsync(createWorkoutsTableQuery);
+  await db.withTransactionAsync(async () => {
+    if (!db) return;
+    await db.execAsync(createWorkoutsTableQuery);
+    await db.execAsync(createExercisesTableQuery);
+  });
   console.log("Tables created");
 
   return db;
