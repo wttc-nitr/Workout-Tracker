@@ -11,6 +11,7 @@ import {
 import { createNewExercise } from "@/services/exerciseService";
 import { immer } from "zustand/middleware/immer";
 import { createNewSet, updateSet } from "@/services/setService";
+import { deleteSet } from "@/db/sets";
 
 type State = {
   currentWorkout: WorkoutWithExercises | null;
@@ -102,6 +103,7 @@ export const useWorkouts = create<State & Actions>()(
       },
 
       deleteSet: (setId) => {
+        deleteSet(setId); // delete at db layer
         set(({ currentWorkout }) => {
           if (!currentWorkout) return;
 
