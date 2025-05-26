@@ -63,3 +63,13 @@ export const getWorkouts = async (): Promise<Workout[]> => {
     return [];
   }
 };
+
+export const deleteWorkout = async (id: string) => {
+  try {
+    const db = await getDB();
+
+    await db.runAsync("DELETE FROM workouts WHERE id=?", id);
+  } catch (e) {
+    console.log(e);
+  }
+};

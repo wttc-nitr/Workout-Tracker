@@ -60,7 +60,7 @@ export const useWorkouts = create<State & Actions>()(
         set((state) => {
           state.currentWorkout = null;
 
-          if (finishedWorkout.exercises.length !== 0)
+          if (finishedWorkout && finishedWorkout.exercises.length !== 0)
             state.workouts.unshift(finishedWorkout);
         });
       },

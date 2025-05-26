@@ -5,7 +5,12 @@ import {
   getExerciseTotalWeight,
 } from "@/services/exerciseService";
 import * as Crypto from "expo-crypto";
-import { getCurrentWorkout, saveWorkout, getWorkouts } from "@/db/workouts";
+import {
+  getCurrentWorkout,
+  saveWorkout,
+  getWorkouts,
+  deleteWorkout,
+} from "@/db/workouts";
 import { getExercises } from "@/db/exercises";
 
 export const getWorkoutTotalWeight = (workout: WorkoutWithExercises) => {
@@ -32,6 +37,10 @@ export const createNewWorkout = () => {
 export const finishWorkout = (workout: WorkoutWithExercises) => {
   const cleanedWorkout = cleanWorkout(workout);
 
+  if (!cleanedWorkout) {
+    return null;
+  }
+
   const finishedWorkout: WorkoutWithExercises = {
     ...cleanedWorkout,
     finishedAt: new Date(),
@@ -48,6 +57,11 @@ export const cleanWorkout = (workout: WorkoutWithExercises) => {
   const cleanedExercises = workout.exercises
     .map(cleanExercise)
     .filter((ex) => ex !== null);
+
+  if (cleanedExercises.length === 0) {
+    deleteWorkout(workout.id);
+    return null;
+  }
 
   return {
     ...workout,
