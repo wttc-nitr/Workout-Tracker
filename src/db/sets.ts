@@ -32,7 +32,7 @@ export const getSets = async (exerciseId: string): Promise<ExerciseSet[]> => {
   try {
     const db = await getDB();
     const sets = await db.getAllAsync<DbExerciseSet>(
-      "SELECT * FROM sets WHERE exercise_id=?",
+      "SELECT * FROM sets WHERE exercise_id=? AND reps IS NOT NULL",
       exerciseId,
     );
 
