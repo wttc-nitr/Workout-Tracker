@@ -3,14 +3,21 @@ import WorkoutHeader from "@/components/logger/WorkoutHeader";
 import SelectExerciseModal from "@/components/logger/SelectExerciseModal";
 import { KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view";
 import { useWorkouts } from "@/store";
-import { Redirect } from "expo-router";
-import { FlatList, Platform } from "react-native";
+import { Redirect, router, useFocusEffect } from "expo-router";
+import { ActivityIndicator } from "react-native";
+import { useCallback } from "react";
 
 export default function CurrentWorkoutScreen() {
   const currentWorkout = useWorkouts((state) => state.currentWorkout);
   const addExercise = useWorkouts((state) => state.addExercise);
+  useFocusEffect(
+    useCallback(() => {
+      if (!currentWorkout) router.dismissAll();
+    }, [currentWorkout]),
+  );
+
   if (!currentWorkout) {
-    return <Redirect href={"/"} />;
+    return <ActivityIndicator />;
   }
   return (
     <KeyboardAwareFlatList
