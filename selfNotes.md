@@ -178,3 +178,9 @@ type abc = {
 
 type onlyNumberArray = Pick<abc, 'c'>
 ```
+## fire & forget method
+- it takes some time to save to db, invoke the save method & don't wait for it complete.
+- it'll be completed later.
+
+## db transactions
+- send money from A to B -> subtract from A & add to B -> but if any one fails, undo the whole operation
