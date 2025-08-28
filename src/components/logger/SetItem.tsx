@@ -1,10 +1,11 @@
 import { View, Text, TextInput } from "@/components/general/Themed";
 import type { ExerciseSet } from "@/types/models";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { StyleSheet } from "react-native";
 import Swipeable from "react-native-gesture-handler/ReanimatedSwipeable";
 import CustomButton from "../general/CustomButton";
 import { useWorkouts } from "@/store";
+import { useFocusEffect } from "expo-router";
 
 type SetItem = {
   index: number;
@@ -18,12 +19,22 @@ export default function SetItem({ index, set }: SetItem) {
   const deleteSet = useWorkouts((state) => state.deleteSet);
 
   const handleWeightChange = () => {
-    updateSet(set.id, { weight: parseFloat(weight) });
+    if (weight !== "") updateSet(set.id, { weight: parseFloat(weight) });
   };
 
   const handleRepsChange = () => {
-    updateSet(set.id, { reps: parseInt(reps) });
+    console.warn("reps handlechange, reps: ", reps);
+    if (reps !== "") updateSet(set.id, { reps: parseInt(reps) });
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        handleRepsChange();
+        handleWeightChange();
+      };
+    }, [reps, weight]),
+  );
 
   const renderRightActions = () => (
     <CustomButton
@@ -47,6 +58,7 @@ export default function SetItem({ index, set }: SetItem) {
           style={styles.input}
           keyboardType="numeric"
           onBlur={handleWeightChange}
+          onEndEditing={handleWeightChange}
         />
         <TextInput
           placeholder="8"
@@ -55,6 +67,7 @@ export default function SetItem({ index, set }: SetItem) {
           style={styles.input}
           keyboardType="numeric"
           onBlur={handleRepsChange}
+          onEndEditing={handleRepsChange}
         />
       </View>
     </Swipeable>
