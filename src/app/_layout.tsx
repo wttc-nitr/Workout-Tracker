@@ -32,47 +32,38 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <StatusBar
-        backgroundColor={colorScheme === "dark" ? "black" : "white"}
-        style={colorScheme === "dark" ? "light" : "dark"}
-      />
-      <SafeAreaView style={{ flex: 1 }}>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <ThemeProvider
-            value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <ThemeProvider
+          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+        >
+          <Stack
+            screenOptions={{
+              headerTintColor: "blue",
+              headerTitleAlign: "center",
+            }}
           >
-            <Stack
-              screenOptions={{
-                headerTintColor: "blue",
-                headerTitleAlign: "center",
+            <Stack.Screen name="index" options={{ title: "Home" }} />
+            <Stack.Screen
+              name="workout/current"
+              options={{
+                title: "Workout",
+                headerRight: () => (
+                  <CustomButton
+                    onPress={finishWorkout}
+                    title="Finish"
+                    style={{
+                      padding: 7,
+                      paddingHorizontal: 15,
+                      width: "auto",
+                    }}
+                  />
+                ),
               }}
-            >
-              <Stack.Screen name="index" options={{ title: "Home" }} />
-              <Stack.Screen
-                name="workout/current"
-                options={{
-                  title: "Workout",
-                  headerRight: () => (
-                    <CustomButton
-                      onPress={finishWorkout}
-                      title="Finish"
-                      style={{
-                        padding: 7,
-                        paddingHorizontal: 15,
-                        width: "auto",
-                      }}
-                    />
-                  ),
-                }}
-              />
-              <Stack.Screen
-                name="workout/[id]"
-                options={{ title: "Workout" }}
-              />
-            </Stack>
-          </ThemeProvider>
-        </GestureHandlerRootView>
-      </SafeAreaView>
+            />
+            <Stack.Screen name="workout/[id]" options={{ title: "Workout" }} />
+          </Stack>
+        </ThemeProvider>
+      </GestureHandlerRootView>
     </SafeAreaProvider>
   );
 }
