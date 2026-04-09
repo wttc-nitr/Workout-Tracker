@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import { useColorScheme } from "react-native";
+import { useColorScheme, View } from "react-native";
 import {
   ThemeProvider,
   DefaultTheme,
@@ -12,7 +12,10 @@ import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
 import * as SQLite from "expo-sqlite";
 import { dbName } from "@/db";
 import { useEffect } from "react";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 
 const db = SQLite.openDatabaseSync(dbName);
@@ -25,6 +28,7 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
   const finishWorkout = useWorkouts((state) => state.endWorkout);
   const loadWorkouts = useWorkouts((state) => state.loadWorkouts);
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     loadWorkouts();
@@ -32,6 +36,8 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
+      <StatusBar style="auto" />
+      <View style={{ height: insets.top }} />
       <GestureHandlerRootView style={{ flex: 1 }}>
         <ThemeProvider
           value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
